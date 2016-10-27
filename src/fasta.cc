@@ -290,13 +290,8 @@ void make(const char* desc, int n, generator_type generator, converter_type conv
    }
 }
 
-int main(int argc, char *argv[])
+int run(int n)
 {
-   int n = 1000;
-   if (argc < 2 || (n = std::atoi(argv[1])) <= 0) {
-      std::cerr << "usage: " << argv[0] << " length\n";
-      return 1;
-   }
 
    make_cumulative(iub.begin(), iub.end());
    make_cumulative(homosapiens.begin(), homosapiens.end());
@@ -311,4 +306,10 @@ int main(int argc, char *argv[])
        make_random_generator(homosapiens.begin(), homosapiens.end()),
        &convert_homosapiens );
    return 0;
+}
+
+#include "nbind/nbind.h"
+
+NBIND_GLOBAL() {
+  function(run);
 }
